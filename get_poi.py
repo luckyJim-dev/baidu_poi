@@ -14,7 +14,7 @@ def get_file_name_by_city(city):
     cittyName = piny.get_pinyin(city,'')
     return ('data/{0}.csv'.format(cittyName))
 
-def get_kml_file_by_city(city):git commit -m "first commit"
+def get_kml_file_by_city(city):
     piny = Pinyin()
     cittyName = piny.get_pinyin(city,'')
     return ('data/{0}.kml'.format(cittyName))
@@ -51,9 +51,10 @@ def get_tags_by_city(tags,city):
         kml_f.write(output.decode('utf-8'))
         kml_f.close()
     print("sucess")
-    pass  
+    pass
 
 if __name__ == '__main__':
-    tags = ['高等院校']
-    city = "西安"
+
+    tags = input("请输入你所需要查询的场景,多个场景以逗号隔开:").split(',')
+    city = input("请输入你所需要查询的城市:")
     get_tags_by_city(tags,city)
