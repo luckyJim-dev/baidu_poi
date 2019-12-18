@@ -24,8 +24,8 @@ def get_tags_by_city(tags,city):
     file_name = get_file_name_by_city(city)
     kml_name = get_kml_file_by_city(city)
     fold = KML.Folder()
-    with open(kml_name,'w') as kml_f:
-        with open(file_name,'w') as f:
+    with open(kml_name,'w',encoding = 'utf-8') as kml_f:
+        with open(file_name,'w',encoding = 'utf-8') as f:
             print("Start...")
             f.write("{},{},{}".format('name','lat','lng'))
             for tag in tags:
