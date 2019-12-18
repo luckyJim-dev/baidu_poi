@@ -29,6 +29,8 @@ def get_tags_by_city(tags,city):
             print("Start...")
             f.write("{},{},{}".format('name','lat','lng'))
             for tag in tags:
+                sub_folder = KML.Folder()
+                sub_folder.append(KML.name(tag))
                 data = map_api.place_api.get_place_all(tag,city)
                 for item in data:
                     try:
@@ -37,15 +39,16 @@ def get_tags_by_city(tags,city):
                         lat = float(item['location']['lat'])
                         [g_lng,g_lat] = Transfer.bd09_to_wgs84(lng,lat)
                         # Write data in CSV
-                        f.write("{},{},{}".format(name,g_lng,g_lat))
+                        f.write("{},{},{},{}".format(name,g_lng,g_lat,tag))
                         # Write data in kml
-                        fold.append(
+                        sub_folder.append(
                             KML.Placemark(
                                 KML.name(name),
                                 KML.Point(KML.coordinates(str(g_lng)+","+str(g_lat)))
                             ))
                     except:
                         logging.exception('Error: Parsing json file ')
+                fold.append(sub_folder)
             f.close()
         output = etree.tostring(fold,pretty_print=True)
         kml_f.write(output.decode('utf-8'))
@@ -55,6 +58,7 @@ def get_tags_by_city(tags,city):
 
 if __name__ == '__main__':
 
-    tags = input("请输入你所需要查询的场景,多个场景以逗号隔开:").split(',')
+    indata= input("请输入你所需要查询的场景,多个场景以逗号隔开:")
+    tags = indata.split(",")
     city = input("请输入你所需要查询的城市:")
     get_tags_by_city(tags,city)
