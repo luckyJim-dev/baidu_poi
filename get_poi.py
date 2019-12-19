@@ -25,9 +25,9 @@ def get_tags_by_city(tags,city):
     kml_name = get_kml_file_by_city(city)
     fold = KML.Folder()
     with open(kml_name,'w',encoding = 'utf-8') as kml_f:
-        with open(file_name,'w',encoding = 'utf-8') as f:
+        with open(file_name,'w',encoding = 'utf-8', newline='\n') as f:
             print("Start...")
-            f.write("{},{},{}".format('name','lat','lng'))
+            f.write("{},{},{},{}\n".format('name','lat','lng','tags'))
             for tag in tags:
                 sub_folder = KML.Folder()
                 sub_folder.append(KML.name(tag))
@@ -39,7 +39,7 @@ def get_tags_by_city(tags,city):
                         lat = float(item['location']['lat'])
                         [g_lng,g_lat] = Transfer.bd09_to_wgs84(lng,lat)
                         # Write data in CSV
-                        f.write("{},{},{},{}".format(name,g_lng,g_lat,tag))
+                        f.write("{},{},{},{}\n".format(name,g_lng,g_lat,tag))
                         # Write data in kml
                         sub_folder.append(
                             KML.Placemark(
