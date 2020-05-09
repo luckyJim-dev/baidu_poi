@@ -1,8 +1,8 @@
 # 1.安装步骤
 
-`pip install requests`
-`pip install pykml`  
-`pip install xpinyin`
+`pip install requests`   
+`pip install pykml`     
+`pip install xpinyin`   
 
 # 2. 主要参考资料
 
